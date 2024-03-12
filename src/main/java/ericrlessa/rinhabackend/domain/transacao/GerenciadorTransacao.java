@@ -13,7 +13,7 @@ public class GerenciadorTransacao extends GerenciadorAbstract {
         validarClienteExistente(transacao.getClienteId());
         validarDescricao(transacao.getDescricao());
 
-        Cliente cliente = clienteRepositorio.findById(transacao.getClienteId()).get();
+        Cliente cliente = clienteRepositorio.findByIdPessimisticWrite(transacao.getClienteId()).get();
         if((cliente.saldo - transacao.getValor()) < cliente.limite * -1){
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }else{
@@ -29,7 +29,7 @@ public class GerenciadorTransacao extends GerenciadorAbstract {
         validarClienteExistente(transacao.getClienteId());
         validarDescricao(transacao.getDescricao());
 
-        Cliente cliente = clienteRepositorio.findById(transacao.getClienteId()).get();
+        Cliente cliente = clienteRepositorio.findByIdPessimisticWrite(transacao.getClienteId()).get();
         cliente.saldo += transacao.getValor();
 
         transacaoRepositorio.save(transacao);

@@ -23,7 +23,7 @@ public class ClienteRest {
 
     @PostMapping(value ="/transacoes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ResponseEntity<TransacaoResponse> creditoDebito(@RequestParam("id") Integer clienteId, TransacaoForm transacaoForm){
+    public ResponseEntity<TransacaoResponse> creditoDebito(@PathVariable("id") Integer clienteId, @RequestBody TransacaoForm transacaoForm){
 
         if(transacaoForm == null || isDecimal(transacaoForm.valor())){
             return ResponseEntity.status(GerenciadorAbstract.UNPROCESSABLE_ENTITY).build();
@@ -43,7 +43,7 @@ public class ClienteRest {
     }
 
     @GetMapping(value ="/extrato")
-    public ResponseEntity<ExtratoResponse> extrato(@RequestParam("id") Integer clienteId){
+    public ResponseEntity<ExtratoResponse> extrato(@PathVariable("id") Integer clienteId){
         return ResponseEntity.ok(gerenciadorExtrato.extrato(clienteId));
     }
 
