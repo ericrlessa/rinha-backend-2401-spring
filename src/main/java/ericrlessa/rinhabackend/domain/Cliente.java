@@ -9,8 +9,8 @@ public class Cliente {
     @Id
     public Integer id;
 
-    public Long limite;
-    public Long saldo;
+    private Long limite;
+    private Long saldo;
 
     Cliente(){}
 
@@ -26,5 +26,29 @@ public class Cliente {
 
     public static Cliente of(Integer id, Long limite){
         return new Cliente(id, limite, 0l);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Long getLimite() {
+        return limite;
+    }
+
+    public void setLimite(Long limite) {
+        this.limite = limite;
+    }
+
+    public Long getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Long saldo) {
+        this.saldo = saldo;
     }
 }

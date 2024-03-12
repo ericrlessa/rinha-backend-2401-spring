@@ -14,15 +14,15 @@ public class GerenciadorTransacao extends GerenciadorAbstract {
         validarDescricao(transacao.getDescricao());
 
         Cliente cliente = clienteRepositorio.findByIdPessimisticWrite(transacao.getClienteId()).get();
-        if((cliente.saldo - transacao.getValor()) < cliente.limite * -1){
+        if((cliente.getSaldo() - transacao.getValor()) < cliente.getLimite() * -1){
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }else{
-            cliente.saldo -= transacao.getValor();
+            cliente.setSaldo(cliente.getSaldo() - transacao.getValor());
         }
 
         transacaoRepositorio.save(transacao);
 
-        return new TransacaoResponse(cliente.limite, cliente.saldo);
+        return new TransacaoResponse(cliente.getLimite(), cliente.getSaldo());
     }
 
     public TransacaoResponse credito(Transacao transacao){
@@ -30,11 +30,11 @@ public class GerenciadorTransacao extends GerenciadorAbstract {
         validarDescricao(transacao.getDescricao());
 
         Cliente cliente = clienteRepositorio.findByIdPessimisticWrite(transacao.getClienteId()).get();
-        cliente.saldo += transacao.getValor();
+        cliente.setSaldo(cliente.getSaldo() + transacao.getValor());
 
         transacaoRepositorio.save(transacao);
 
-        return new TransacaoResponse(cliente.limite, cliente.saldo);
+        return new TransacaoResponse(cliente.getLimite(), cliente.getSaldo());
     }
 
     private void validarDescricao(String descricao){

@@ -17,6 +17,6 @@ public class GerenciadorExtrato extends GerenciadorAbstract {
 
         List<Transacao> transacoes = transacaoRepositorio.findFirst10ByClienteIdOrderByRealizadaEmDesc(id);
 
-        return new ExtratoResponse(Saldo.of(c.saldo, c.limite), transacoes);
+        return new ExtratoResponse(Saldo.of(c.getSaldo(), c.getLimite()), transacoes);
     }
 }
