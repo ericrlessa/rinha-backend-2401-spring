@@ -4,7 +4,7 @@ Rinha de Backend 2024/01
 
 ## Stack
 
-* Quarkus (web)
+* Spring Boot native (web)
 * Postgresql (banco de dados)
 * nginx (proxy)
 
