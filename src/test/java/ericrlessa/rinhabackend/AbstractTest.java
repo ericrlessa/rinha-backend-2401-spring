@@ -23,15 +23,13 @@ public abstract class AbstractTest {
     @LocalServerPort
     private Integer port;
 
-
-
     @Autowired
     protected ClienteRepositorio clienteRepositorio;
 
     @BeforeEach
     @Transactional
     public void beforeEach(){
-        RestAssured.baseURI = "http://localhost:" + port;
+        RestAssured.baseURI = "http://localhost:" + port + "/api";
 
         clienteRepositorio.deleteAll();
         clienteRepositorio.save(Cliente.of(1, 100000l));
