@@ -31,6 +31,13 @@ public class ClienteRest {
         return ResponseEntity.ok(clienteRepositorio.findAll());
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente){
+        clienteRepositorio.save(cliente);
+        return ResponseEntity.ok(cliente);
+    }
+
     @PostMapping(value ="/{id}/transacoes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<TransacaoResponse> creditoDebito(@PathVariable("id") Integer clienteId, @RequestBody TransacaoForm transacaoForm){

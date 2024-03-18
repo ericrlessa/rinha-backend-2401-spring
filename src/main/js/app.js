@@ -4,6 +4,10 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
 
+const follow = require('./follow');
+
+const root = '/api';
+
 class App extends React.Component {
 
 	constructor(props) {
@@ -17,9 +21,23 @@ class App extends React.Component {
 		});
 	}
 
+	onCreate(newCliente) {
+    	follow(client, root, ['clientes']).done(response => {
+    		client({
+    			method: 'POST',
+    			path: '/api/clientes',
+    			entity: newCliente,
+    			headers: {'Content-Type': 'application/json'}
+    		})
+    	})
+    }
+
 	render() {
 		return (
-			<ClienteList clientes={this.state.clientes}/>
+		    <div>
+			    <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
+			    <ClienteList clientes={this.state.clientes}/>
+			</div>
 		)
 	}
 }
@@ -52,6 +70,47 @@ class Cliente extends React.Component{
 				<td>{this.props.cliente.limite}</td>
 				<td>{this.props.cliente.saldo}</td>
 			</tr>
+		)
+	}
+}
+
+class CreateDialog extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleSubmit(e) {
+		e.preventDefault();
+		const newCliente = {};
+		this.props.onCreate(newCliente);
+		window.location = "#";
+	}
+
+	render() {
+		return (
+			<div>
+				<a href="#createCliente">Create</a>
+
+				<div id="createCliente" className="modalDialog">
+					<div>
+						<a href="#" title="Close" className="close">X</a>
+
+						<h2>Create new cliente</h2>
+
+						<form>
+							<p key="limite">
+                            	<input type="text" placeholder="limite" ref="limite" className="field"/>
+                            </p>
+							<p key="saldo">
+                            	<input type="text" placeholder="saldo" ref="saldo" className="field"/>
+                            </p>
+							<button onClick={this.handleSubmit}>Create</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		)
 	}
 }
