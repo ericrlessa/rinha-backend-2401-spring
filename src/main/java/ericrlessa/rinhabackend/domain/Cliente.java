@@ -1,12 +1,14 @@
 package ericrlessa.rinhabackend.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class Cliente {
 
     @Id
+    @GeneratedValue
     public Integer id;
 
     private Long limite;
@@ -14,18 +16,17 @@ public class Cliente {
 
     Cliente(){}
 
-    public Cliente(Integer id, Long limite, Long saldo){
-        this.id = id;
+    public Cliente(Long limite, Long saldo){
         this.limite = limite;
         this.saldo = saldo;
     }
 
-    public static Cliente of(Integer id, Long limite, Long saldoInicial){
-        return new Cliente(id, limite, saldoInicial);
+    public static Cliente of(Long limite, Long saldoInicial){
+        return new Cliente(limite, saldoInicial);
     }
 
     public static Cliente of(Integer id, Long limite){
-        return new Cliente(id, limite, 0l);
+        return new Cliente(limite, 0l);
     }
 
     public Integer getId() {

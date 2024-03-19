@@ -4,8 +4,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
 
-const follow = require('./follow');
-
 const root = '/api';
 
 class App extends React.Component {
@@ -22,13 +20,11 @@ class App extends React.Component {
 	}
 
 	onCreate(newCliente) {
-    	follow(client, root, ['clientes']).done(response => {
-    		client({
-    			method: 'POST',
-    			path: '/api/clientes',
-    			entity: newCliente,
-    			headers: {'Content-Type': 'application/json'}
-    		})
+    	client({
+    		method: 'POST',
+    		path: '/api/clientes',
+    		entity: newCliente,
+    		headers: {'Content-Type': 'application/json'}
     	})
     }
 
@@ -84,6 +80,8 @@ class CreateDialog extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const newCliente = {};
+       	newCliente['limite'] = ReactDOM.findDOMNode(this.refs['limite']).value.trim();
+       	newCliente['saldo'] = ReactDOM.findDOMNode(this.refs['saldo']).value.trim();
 		this.props.onCreate(newCliente);
 		window.location = "#";
 	}

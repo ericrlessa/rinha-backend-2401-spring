@@ -1,4 +1,5 @@
 create sequence Transacao_SEQ start with 1 increment by 50;
+create sequence Cliente_SEQ start with 7 increment by 50;
 
 create UNLOGGED table Transacao (
     id bigint not null,
