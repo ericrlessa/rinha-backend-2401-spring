@@ -96,7 +96,7 @@ class Extrato extends React.Component {
         );
 		return (
 		    <div>
-			    <a onClick={() => this.loadExtrato(dialogId)}>Extrato</a>
+			    <a href={"#" + dialogId} onClick={() => this.loadExtrato(dialogId)}>Extrato</a>
   				<div id={dialogId} className="modalDialog">
 					<div>
 						<a href="#" title="Close" className="close">X</a>
