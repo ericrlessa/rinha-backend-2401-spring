@@ -137,8 +137,8 @@ class Transacao extends React.Component{
 			<tr>
 				<td>{this.props.transacao.valor}</td>
 				<td>{this.props.transacao.tipo}</td>
+				<td>{this.props.transacao.realizada_em}</td>
 				<td>{this.props.transacao.descricao}</td>
-				<td>{this.props.transacao.realizadaEm}</td>
 			</tr>
 		)
 	}
