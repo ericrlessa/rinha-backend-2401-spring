@@ -19,6 +19,7 @@ class App extends React.Component {
 		});
 	}
 
+
 	onCreate(newCliente) {
     	client({
     		method: 'POST',
@@ -65,10 +66,84 @@ class Cliente extends React.Component{
 				<td>{this.props.cliente.id}</td>
 				<td>{this.props.cliente.limite}</td>
 				<td>{this.props.cliente.saldo}</td>
+				<td>
+                	<Extrato cliente={this.props.cliente}/>
+                </td>
 			</tr>
 		)
 	}
 }
+
+class Extrato extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {clienteExtrato: {"saldo":{"total":0,"data_extrato":"","limite": 0},"ultimas_transacoes":[]}};
+	}
+
+	loadExtrato(dialogId) {
+	    //e.preventDefault();
+      	client({method: 'GET', path: '/api/clientes/' + this.props.cliente.id + "/extrato"}).done(response => {
+      	    this.setState({clienteExtrato: response.entity});
+        });
+        window.location = "#" + dialogId;
+    }
+
+	render() {
+	    const dialogId = "extratoDialog" + this.props.cliente.id;
+	    const ultimasTransacoes = this.state.clienteExtrato.ultimas_transacoes.map(trs =>
+              <Transacao transacao={trs}/>
+        );
+		return (
+		    <div>
+			    <a onClick={() => this.loadExtrato(dialogId)}>Extrato</a>
+  				<div id={dialogId} className="modalDialog">
+					<div>
+						<a href="#" title="Close" className="close">X</a>
+
+						<h2>Extrato</h2>
+
+                        <h3>Saldo</h3>
+                        <div>
+                            <p key="total"><b>Total:</b> {this.state.clienteExtrato.saldo.total}</p>
+                            <p key="limite"><b>Limite:</b> {this.state.clienteExtrato.saldo.limite}</p>
+                        </div>
+
+                        <h3>Transações</h3>
+                        <div>
+                                 <table>
+                                       <tbody>
+                                            <tr>
+                                        	    <th>Valor</th>
+                                        		<th>Tipo</th>
+                                        		<th>Realizada em</th>
+                                        		<th>Descricao</th>
+                                        	</tr>
+                                        	{ultimasTransacoes}
+                                        </tbody>
+                                 </table>
+                        </div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+}
+
+class Transacao extends React.Component{
+	render() {
+		return (
+			<tr>
+				<td>{this.props.transacao.valor}</td>
+				<td>{this.props.transacao.tipo}</td>
+				<td>{this.props.transacao.descricao}</td>
+				<td>{this.props.transacao.realizadaEm}</td>
+			</tr>
+		)
+	}
+}
+
 
 class CreateDialog extends React.Component {
 
