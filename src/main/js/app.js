@@ -4,8 +4,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
 
-const root = '/api';
-
 class App extends React.Component {
 
 	constructor(props) {
@@ -14,7 +12,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		client({method: 'GET', path: '/api/clientes'}).done(response => {
+		client({method: 'GET', path: '/clientes'}).done(response => {
 			this.setState({clientes: response.entity});
 		});
 	}
@@ -23,7 +21,7 @@ class App extends React.Component {
 	onCreate(newCliente) {
     	client({
     		method: 'POST',
-    		path: '/api/clientes',
+    		path: '/clientes',
     		entity: newCliente,
     		headers: {'Content-Type': 'application/json'}
     	})
@@ -83,7 +81,7 @@ class Extrato extends React.Component {
 
 	loadExtrato(dialogId) {
 	    //e.preventDefault();
-      	client({method: 'GET', path: '/api/clientes/' + this.props.cliente.id + "/extrato"}).done(response => {
+      	client({method: 'GET', path: '/clientes/' + this.props.cliente.id + "/extrato"}).done(response => {
       	    this.setState({clienteExtrato: response.entity});
         });
         window.location = "#" + dialogId;
@@ -155,6 +153,7 @@ class CreateDialog extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const newCliente = {};
+       	newCliente['id'] = ReactDOM.findDOMNode(this.refs['limite']).value.trim();
        	newCliente['limite'] = ReactDOM.findDOMNode(this.refs['limite']).value.trim();
        	newCliente['saldo'] = ReactDOM.findDOMNode(this.refs['saldo']).value.trim();
 		this.props.onCreate(newCliente);
@@ -173,6 +172,9 @@ class CreateDialog extends React.Component {
 						<h2>Create new cliente</h2>
 
 						<form>
+						    <p key="id">
+                                <input type="text" placeholder="id" ref="id" className="field"/>
+                            </p>
 							<p key="limite">
                             	<input type="text" placeholder="limite" ref="limite" className="field"/>
                             </p>

@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 public class Cliente {
 
     @Id
-    @GeneratedValue
     public Integer id;
 
     private Long limite;
@@ -16,17 +15,18 @@ public class Cliente {
 
     Cliente(){}
 
-    public Cliente(Long limite, Long saldo){
+    public Cliente(Integer id, Long limite, Long saldo){
+        this.id = id;
         this.limite = limite;
         this.saldo = saldo;
     }
 
     public static Cliente of(Long limite, Long saldoInicial){
-        return new Cliente(limite, saldoInicial);
+        return new Cliente(null, limite, saldoInicial);
     }
 
     public static Cliente of(Integer id, Long limite){
-        return new Cliente(limite, 0l);
+        return new Cliente(id, limite, 0l);
     }
 
     public Integer getId() {
