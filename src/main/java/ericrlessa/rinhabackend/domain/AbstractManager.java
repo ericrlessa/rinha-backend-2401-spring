@@ -1,22 +1,22 @@
 package ericrlessa.rinhabackend.domain;
 
-import ericrlessa.rinhabackend.domain.transacao.TransacaoRepositorio;
+import ericrlessa.rinhabackend.domain.transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-public abstract class GerenciadorAbstract {
+public abstract class AbstractManager {
 
     @Autowired
-    protected ClienteRepositorio clienteRepositorio;
+    protected ClientRepository clientRepository;
 
     @Autowired
-    protected TransacaoRepositorio transacaoRepositorio;
+    protected TransactionRepository transactionRepository;
 
     public static final Integer UNPROCESSABLE_ENTITY = 422;
 
     public void validarClienteExistente(Integer id) {
-        if(clienteRepositorio.countById(id) == 0){
+        if(clientRepository.countById(id) == 0){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
