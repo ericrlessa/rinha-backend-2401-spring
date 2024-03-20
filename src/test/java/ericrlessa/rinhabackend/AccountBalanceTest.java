@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 
-public class ExtratoTest extends AbstractTest{
+public class AccountBalanceTest extends AbstractTest{
 
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:16.2"

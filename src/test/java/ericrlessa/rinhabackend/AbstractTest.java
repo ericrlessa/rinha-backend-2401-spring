@@ -1,8 +1,8 @@
 package ericrlessa.rinhabackend;
 
 
-import ericrlessa.rinhabackend.domain.Cliente;
-import ericrlessa.rinhabackend.domain.ClienteRepositorio;
+import ericrlessa.rinhabackend.domain.Client;
+import ericrlessa.rinhabackend.domain.ClientRepository;
 import io.restassured.RestAssured;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,19 +17,19 @@ public abstract class AbstractTest {
     private Integer port;
 
     @Autowired
-    protected ClienteRepositorio clienteRepositorio;
+    protected ClientRepository clientRepository;
 
     @BeforeEach
     @Transactional
     public void beforeEach(){
         RestAssured.baseURI = "http://localhost:" + port;
 
-        clienteRepositorio.deleteAll();
-        clienteRepositorio.save(Cliente.of(1, 100000l));
-        clienteRepositorio.save(Cliente.of(2, 80000l));
-        clienteRepositorio.save(Cliente.of(3, 1000000l));
-        clienteRepositorio.save(Cliente.of(4, 10000000l));
-        clienteRepositorio.save(Cliente.of(5, 500000l));
+        clientRepository.deleteAll();
+        clientRepository.save(Client.of(1, 100000l));
+        clientRepository.save(Client.of(2, 80000l));
+        clientRepository.save(Client.of(3, 1000000l));
+        clientRepository.save(Client.of(4, 10000000l));
+        clientRepository.save(Client.of(5, 500000l));
 
     }
 }

@@ -1,8 +1,8 @@
 package ericrlessa.rinhabackend.rs;
 
-import ericrlessa.rinhabackend.domain.transacao.Transacao;
+import ericrlessa.rinhabackend.domain.transaction.Transaction;
 
-public record TransacaoForm(Double valor, String tipo, String descricao) {
+public record TransactionForm(Double valor, String tipo, String descricao) {
 
     enum Tipo {
         DEBITO,
@@ -23,7 +23,7 @@ public record TransacaoForm(Double valor, String tipo, String descricao) {
         }
     }
 
-    public Transacao parse(Integer clienteId){
-       return new Transacao(clienteId, valor.intValue(), tipo, descricao);
+    public Transaction parse(Integer clienteId){
+       return new Transaction(clienteId, valor.intValue(), tipo, descricao);
     }
 }

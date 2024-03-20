@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface ClienteRepositorio extends JpaRepository<Cliente, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     long countById(Integer id);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT c FROM Cliente c WHERE c.id = ?1")
-    Optional<Cliente> findByIdPessimisticWrite(Integer id);
+    @Query("SELECT c FROM Client c WHERE c.id = ?1")
+    Optional<Client> findByIdPessimisticWrite(Integer id);
 }

@@ -1,31 +1,29 @@
-create sequence Transacao_SEQ start with 1 increment by 50;
-create sequence Cliente_SEQ start with 7 increment by 50;
+create sequence Transaction_SEQ start with 1 increment by 50;
 
-create UNLOGGED table Transacao (
+create UNLOGGED table Transaction (
     id bigint not null,
-    valor integer,
-    cliente_id bigint not null,
-    realizada_em timestamp(6),
-    descricao varchar(255),
-    tipo varchar(255),
+    value integer,
+    client_id bigint not null,
+    executed_on timestamp(6),
+    description varchar(255),
+    type varchar(255),
     primary key (id)
 );
 
-create UNLOGGED table Cliente (
+create UNLOGGED table Client (
     id bigint not null,
-    limite bigint,
-    saldo bigint,
+    limit_value bigint,
+    account_balance bigint,
     primary key (id)
 );
 
-CREATE INDEX ix_transacao_idcliente ON transacao
+CREATE INDEX ix_transaction_idclient ON Transaction
 (
-    cliente_id
+    client_id
 );
 
-
-  insert into Cliente (limite, saldo, id) values (100000, 0, 1);
-  insert into Cliente (limite, saldo, id) values (80000, 0, 2);
-  insert into Cliente (limite, saldo, id) values (1000000, 0, 3);
-  insert into Cliente (limite, saldo, id) values (10000000, 0, 4);
-  insert into Cliente (limite, saldo, id) values (500000, 0, 5);
+  insert into Client (limit_value, account_balance, id) values (100000, 0, 1);
+  insert into Client (limit_value, account_balance, id) values (80000, 0, 2);
+  insert into Client (limit_value, account_balance, id) values (1000000, 0, 3);
+  insert into Client (limit_value, account_balance, id) values (10000000, 0, 4);
+  insert into Client (limit_value, account_balance, id) values (500000, 0, 5);
