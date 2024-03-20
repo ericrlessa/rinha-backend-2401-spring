@@ -30,6 +30,7 @@ class App extends React.Component {
 	render() {
 		return (
 		    <div>
+		        <h1>Clientes</h1>
 			    <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
 			    <ClienteList clientes={this.state.clientes}/>
 			</div>
